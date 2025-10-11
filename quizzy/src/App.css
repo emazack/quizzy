@@ -16,15 +16,35 @@
 
 .title {
   color: #293264;
+  font-family: 'Karla', sans-serif;
+  font-size: 3.125rem;
+  margin-bottom: 7px;
 }
 
 .description {
-  color: #293264
+  color: #293264;
+  font-family: 'Inter', sans-serif;
+  font-size: 1.6rem;
+  margin-bottom: 29px;
 }
 
 .start-button {
   color: #F5F7FB;
-  background-color: #293264;
+  background-color: #4D5B9E;
+  font-family: 'Inter', sans-serif;
+  font-size: 1.6rem;
+  padding: 15.5px 58.6px;
+  border-radius: 15px;
+  border: none;
+  cursor: pointer;
+}
+
+.start-button:hover {
+  background-color: #3a468a;
+}
+
+.start-button:active {
+  background-color: #213085;
 }
 
 .blob-container {

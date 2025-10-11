@@ -12,7 +12,7 @@ function App() {
           Quizzy
         </h1>
         <p className='description'>
-          Are you Expert of Javascript?
+          Are you expert of Javascript?
         </p>
         <button className='start-button'>
           Start quiz
