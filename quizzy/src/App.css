@@ -1,0 +1,42 @@
+.main-element {
+  background-color: #F5F7FB;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  height: 100vh;
+}
+
+.content-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.title {
+  color: #293264;
+}
+
+.description {
+  color: #293264
+}
+
+.start-button {
+  color: #F5F7FB;
+  background-color: #293264;
+}
+
+.blob-container {
+  position: absolute;
+}
+
+.blob-container.one {
+  top: 0;
+  right: 0;
+}
+
+.blob-container.two {
+  bottom: 0;
+  left: 0;
+}
