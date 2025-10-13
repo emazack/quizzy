@@ -14,7 +14,7 @@ function App() {
         <p className='description'>
           Are you expert of Javascript?
         </p>
-        <button className='start-button'>
+        <button className='main-button'>
           Start quiz
         </button>
       </div> */}
@@ -63,6 +63,18 @@ function App() {
               </li>
             </ul>
           </fieldset>
+
+          {/* <button className='main-button'>
+            Check answers
+          </button> */}
+          <div className='score-container'>
+            <h2 className='score'>
+              You scored 3/5 correct answers
+            </h2>
+            <button className='main-button'>
+              Play again
+            </button>
+          </div>
         </form>
       </div>
       <div className='blob-container one'>

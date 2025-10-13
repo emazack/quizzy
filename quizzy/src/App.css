@@ -2,6 +2,7 @@
   --color-background: #F5F7FB;
   --color-text: #293264;
   --color-primary: #4D5B9E;
+  --color-secondary: #D6DBF5;
   --color-light: #F5F7FB;
   --color-grey: #DBDEF0;
   --font-main: 'Inter', sans-serif;
@@ -44,7 +45,7 @@ body {
   margin-bottom: 3rem;
 }
 
-.start-button {
+.main-button {
   color: var(--color-light);
   background-color: var(--color-primary);
   font-size: 1.6rem;
@@ -52,9 +53,11 @@ body {
   padding: 1.6rem 4rem;
   border: none;
   cursor: pointer;
+  align-self: center;
 }
 
-.start-button:hover, .start-button:active {
+.main-button:hover,
+.main-button:active {
   opacity: 0.9;
 }
 
@@ -78,31 +81,39 @@ body {
 }
 
 .second-page-wrapper {
+  width: 100%;
 }
 
 .second-page-wrapper .quiz-container {
+  width: 100%;
+  margin: 0 auto;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
 }
 
-.second-page-wrapper .quiz-container .question-fieldset {
+.quiz-container .question-fieldset {
   border-bottom: 2px solid var(--color-grey);
   padding-bottom: 1.5rem;
+  margin-top: 1.5rem;
+  margin-bottom: 2rem;
 }
 
-.second-page-wrapper .quiz-container .question-fieldset .question {
+.question-fieldset .question {
   font-family: var(--font-display);
   font-size: 1.6rem;
   font-weight: bold;
   margin-bottom: 1.2rem;
 }
 
-.second-page-wrapper .quiz-container .question-fieldset .answers-container {
+.question-fieldset .answers-container {
   display: flex;
   gap: 1.2rem;
   justify-content: flex-start;
   align-items: center;
 }
 
-.second-page-wrapper .quiz-container .question-fieldset .answers-container .answer {
+.answer label {
   font-size: 1rem;
   padding: 0.4rem 1.9rem;
   border: 1px solid var(--color-primary);
@@ -110,14 +121,29 @@ body {
   cursor: pointer;
 }
 
-.second-page-wrapper .quiz-container .question-fieldset .answers-container .answer:hover {
+.answers-container .answer label:hover {
   background-color: var(--color-grey);
 }
 
-.second-page-wrapper .quiz-container .question-fieldset .answers-container .answer input {
+.answer input[type="radio"]:checked+label {
+  background-color: var(--color-secondary);
+  color: var(--color-text);
+  border: 1px solid var(--color-secondary);
 }
 
-.second-page-wrapper .quiz-container .question-fieldset .answers-container .answer label {
-  cursor: pointer;
+.score-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.4rem;
 }
 
+.score-container .score {
+  font-family: var(--font-main);
+  font-size: 1.28rem;
+  font-weight: bold;
+}
+
+.second-page-wrapper .main-button {
+  padding: 0.8rem 2.7rem;
+}
