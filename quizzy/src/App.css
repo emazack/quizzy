@@ -1,54 +1,69 @@
+:root {
+  --color-background: #F5F7FB;
+  --color-text: #293264;
+  --color-primary: #4D5B9E;
+  --color-light: #F5F7FB;
+  --font-main: 'Inter', sans-serif;
+  --font-display: 'Karla', sans-serif;
+}
+
+body {
+  font-family: var(--font-main);
+  color: var(--color-text);
+}
+
 .main-element {
-  background-color: #F5F7FB;
+  background-color: var(--color-background);
+  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
-  height: 100vh;
+  overflow: hidden;
 }
 
-.content-wrapper {
+.first-page-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  text-align: center;
 }
 
 .title {
-  color: #293264;
-  font-family: 'Karla', sans-serif;
-  font-size: 3.125rem;
-  margin-bottom: 7px;
+  font-family: var(--font-display);
+  font-size: 3.2rem;
+  margin: 0;
+  margin-bottom: 0.8rem;
 }
 
 .description {
-  color: #293264;
-  font-family: 'Inter', sans-serif;
   font-size: 1.6rem;
-  margin-bottom: 29px;
+  margin: 0;
+  margin-bottom: 3rem;
 }
 
 .start-button {
-  color: #F5F7FB;
-  background-color: #4D5B9E;
-  font-family: 'Inter', sans-serif;
+  color: var(--color-light);
+  background-color: var(--color-primary);
   font-size: 1.6rem;
-  padding: 15.5px 58.6px;
-  border-radius: 15px;
+  border-radius: 1.5rem;
+  padding: 1.6rem 4rem;
   border: none;
   cursor: pointer;
 }
 
-.start-button:hover {
-  background-color: #3a468a;
-}
-
-.start-button:active {
-  background-color: #213085;
+.start-button:hover, .start-button:active {
+  opacity: 0.9;
 }
 
 .blob-container {
   position: absolute;
+  z-index: 1;
+}
+
+.first-page-wrapper {
+  z-index: 2;
 }
 
 .blob-container.one {
@@ -60,3 +75,28 @@
   bottom: 0;
   left: 0;
 }
+
+.second-page-wrapper {
+}
+
+.second-page-wrapper .quiz-container {
+}
+
+.second-page-wrapper .quiz-container .question-fieldset {
+}
+
+.second-page-wrapper .quiz-container .question-fieldset .question {
+}
+
+.second-page-wrapper .quiz-container .question-fieldset .answers-container {
+}
+
+.second-page-wrapper .quiz-container .question-fieldset .answers-container .answer {
+}
+
+.second-page-wrapper .quiz-container .question-fieldset .answers-container .answer input {
+}
+
+.second-page-wrapper .quiz-container .question-fieldset .answers-container .answer label {
+}
+

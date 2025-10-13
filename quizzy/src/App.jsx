@@ -7,7 +7,7 @@ function App() {
 
   return (
     <main className='main-element'>
-      <div className='content-wrapper'>
+      {/* <div className='first-page-wrapper'>
         <h1 className='title'>
           Quizzy
         </h1>
@@ -17,12 +17,59 @@ function App() {
         <button className='start-button'>
           Start quiz
         </button>
+      </div> */}
+      <div className='second-page-wrapper'>
+        <form className='quiz-container'>
+          <fieldset className='question-fieldset'>
+            <legend className='question'>
+              How would one say goodbye in Spanish?
+            </legend>
+            <ul className='answers-container'>
+              <li className='answer'>
+                <input
+                  type="radio"
+                  id="answer-1"
+                  name="spanish_goodbye"
+                  value="Adios"
+                />
+                <label htmlFor="answer-1">Adios</label>
+              </li>
+              <li className='answer'>
+                <input
+                  type="radio"
+                  id="answer-2"
+                  name="spanish_goodbye"
+                  value="Hola"
+                />
+                <label htmlFor="answer-2">Hola</label>
+              </li>
+              <li className='answer'>
+                <input
+                  type="radio"
+                  id="answer-3"
+                  name="spanish_goodbye"
+                  value="Ciao"
+                />
+                <label htmlFor="answer-3">Ciao</label>
+              </li>
+              <li className='answer'>
+                <input
+                  type="radio"
+                  id="answer-4"
+                  name="spanish_goodbye"
+                  value="Bye"
+                />
+                <label htmlFor="answer-4">Bye</label>
+              </li>
+            </ul>
+          </fieldset>
+        </form>
       </div>
       <div className='blob-container one'>
-        <img className='blob-image' src={blobOne} alt="decorative image blob color one" />
+        <img className='blob-image' src={blobOne} alt="" />
       </div>
       <div className='blob-container two'>
-        <img className='blob-image' src={blobTwo} alt="decorative image blob color two" />
+        <img className='blob-image' src={blobTwo} alt="" />
       </div>
     </main>
   )
