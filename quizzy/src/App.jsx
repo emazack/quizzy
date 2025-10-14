@@ -1,9 +1,43 @@
+
+import { useEffect, useState } from 'react'
 import './App.css'
 import blobOne from './assets/blob1.png'
 import blobTwo from './assets/blob2.png'
 
 
 function App() {
+  const [data, setData] = useState([])
+  const [loader, setLoader] = useState(false)
+  const [error, setError] = useState(false)
+
+  useEffect(() => {
+    async function getQuiz() {
+      setLoader(true)
+      setError(false)
+      try {
+        const response = await fetch("https://opentdb.com/api.php?amount=5&category=15&difficulty=medium&type=multiple")
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json()
+        setData(data.results)
+        setLoader(false)
+      } catch (error) {
+        console.log(error)
+        setError(true)
+      } finally {
+        setLoader(false);
+      }
+    }
+    getQuiz()
+  }, [])
+
+
+
+  useEffect(() => {
+    getQuiz()
+  }, [])
+
 
   return (
     <main className='main-element'>
