@@ -33,10 +33,10 @@ function App() {
     getQuiz()
   }, [])
 
-  function decodeHtml(html) {
+  function decodeHtmlTrim(html) {
     var txt = document.createElement("textarea");
     txt.innerHTML = html;
-    return txt.value;
+    return txt.value.trim();
 }
 
   const quizData = data.map((dataElement, index) => {
@@ -67,7 +67,7 @@ function App() {
             return (
               <fieldset key={quiz.id} className='question-fieldset'>
                 <legend className='question'>
-                  {decodeHtml(quiz.question)}
+                  {decodeHtmlTrim(quiz.question)}
                 </legend>
                 <ul className='answers-container'>
                   {quiz.answers.map((answer, index) => {
@@ -79,7 +79,7 @@ function App() {
                           name={answer}
                           value={answer}
                         />
-                        <label htmlFor={`${answer}-${index}`}>{decodeHtml(answer)}</label>
+                        <label htmlFor={`${answer}-${index}`}>{decodeHtmlTrim(answer)}</label>
                       </li>
                     )
                   })}
