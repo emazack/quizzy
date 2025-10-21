@@ -10,12 +10,13 @@ function App() {
   const [loader, setLoader] = useState(false)
   const [error, setError] = useState(false)
 
+
   useEffect(() => {
     async function getQuiz() {
       setLoader(true)
       setError(false)
       try {
-        const response = await fetch("https://opentdb.com/api.php?amount=5&category=15&difficulty=medium&type=multiple")
+        const response = await fetch("https://opentdb.com/api.php?amount=5&category=15&difficulty=easy&type=multiple")
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -32,12 +33,20 @@ function App() {
     getQuiz()
   }, [])
 
+  function decodeHtml(html) {
+    var txt = document.createElement("textarea");
+    txt.innerHTML = html;
+    return txt.value;
+}
 
-
-  useEffect(() => {
-    getQuiz()
-  }, [])
-
+  const quizData = data.map((dataElement, index) => {
+    const sortedAnswers = [...dataElement.incorrect_answers, dataElement.correct_answer].sort((a, b) => a - b)
+    return {
+      id: index,
+      question: dataElement.question,
+      answers: sortedAnswers
+    }
+  })
 
   return (
     <main className='main-element'>
@@ -54,61 +63,42 @@ function App() {
       </div> */}
       <div className='second-page-wrapper'>
         <form className='quiz-container'>
-          <fieldset className='question-fieldset'>
-            <legend className='question'>
-              How would one say goodbye in Spanish?
-            </legend>
-            <ul className='answers-container'>
-              <li className='answer'>
-                <input
-                  type="radio"
-                  id="answer-1"
-                  name="spanish_goodbye"
-                  value="Adios"
-                />
-                <label htmlFor="answer-1">Adios</label>
-              </li>
-              <li className='answer'>
-                <input
-                  type="radio"
-                  id="answer-2"
-                  name="spanish_goodbye"
-                  value="Hola"
-                />
-                <label htmlFor="answer-2">Hola</label>
-              </li>
-              <li className='answer'>
-                <input
-                  type="radio"
-                  id="answer-3"
-                  name="spanish_goodbye"
-                  value="Ciao"
-                />
-                <label htmlFor="answer-3">Ciao</label>
-              </li>
-              <li className='answer'>
-                <input
-                  type="radio"
-                  id="answer-4"
-                  name="spanish_goodbye"
-                  value="Bye"
-                />
-                <label htmlFor="answer-4">Bye</label>
-              </li>
-            </ul>
-          </fieldset>
+          {quizData.map((quiz) => {
+            return (
+              <fieldset key={quiz.id} className='question-fieldset'>
+                <legend className='question'>
+                  {decodeHtml(quiz.question)}
+                </legend>
+                <ul className='answers-container'>
+                  {quiz.answers.map((answer, index) => {
+                    return (
+                      <li key={index} className='answer'>
+                        <input
+                          type="radio"
+                          id={`${answer}-${index}`}
+                          name={answer}
+                          value={answer}
+                        />
+                        <label htmlFor={`${answer}-${index}`}>{decodeHtml(answer)}</label>
+                      </li>
+                    )
+                  })}
+                </ul>
+              </fieldset>
+            )
+          })}
 
-          {/* <button className='main-button'>
+          <button className='main-button'>
             Check answers
-          </button> */}
-          <div className='score-container'>
+          </button>
+          {/* <div className='score-container'>
             <h2 className='score'>
               You scored 3/5 correct answers
             </h2>
             <button className='main-button'>
               Play again
             </button>
-          </div>
+          </div> */}
         </form>
       </div>
       <div className='blob-container one'>
