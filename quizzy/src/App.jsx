@@ -1,5 +1,5 @@
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import './App.css'
 import blobOne from './assets/blob1.png'
 import blobTwo from './assets/blob2.png'
@@ -10,6 +10,19 @@ function App() {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(false)
   const [startGame, setstartGame] = useState(false)
+  const correctAnswers = data.map((dataElement) => dataElement.correct_answer)
+
+  console.log(correctAnswers);
+  
+
+  const quizData = data.map((dataElement, index) => {
+    const sortedAnswers = [...dataElement.incorrect_answers, dataElement.correct_answer].sort((a, b) => a - b)
+    return {
+      id: index,
+      question: dataElement.question,
+      answers: sortedAnswers
+    }
+  })
 
   const getData = async () => {
     setIsLoading(true)
@@ -37,14 +50,6 @@ function App() {
     return txt.value.trim();
   }
 
-  const quizData = data.map((dataElement, index) => {
-    const sortedAnswers = [...dataElement.incorrect_answers, dataElement.correct_answer].sort((a, b) => a - b)
-    return {
-      id: index,
-      question: dataElement.question,
-      answers: sortedAnswers
-    }
-  })
 
   return (
     <main className='main-element'>
