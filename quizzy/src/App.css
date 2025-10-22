@@ -14,6 +14,25 @@ body {
   color: var(--color-text);
 }
 
+.loader {
+  width: 36px;
+  height: 36px;
+  border: 4px solid var(--color-light);
+  border-top: 4px solid var(--color-primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 .main-element {
   background-color: var(--color-background);
   height: 100vh;

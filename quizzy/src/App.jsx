@@ -7,37 +7,35 @@ import blobTwo from './assets/blob2.png'
 
 function App() {
   const [data, setData] = useState([])
-  const [loader, setLoader] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(false)
+  const [startGame, setstartGame] = useState(false)
 
-
-  useEffect(() => {
-    async function getQuiz() {
-      setLoader(true)
-      setError(false)
-      try {
-        const response = await fetch("https://opentdb.com/api.php?amount=5&category=15&difficulty=easy&type=multiple")
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json()
-        setData(data.results)
-        setLoader(false)
-      } catch (error) {
-        console.log(error)
-        setError(true)
-      } finally {
-        setLoader(false);
+  const getData = async () => {
+    setIsLoading(true)
+    setError(false)
+    try {
+      const response = await fetch("https://opentdb.com/api.php?amount=5&category=15&difficulty=easy&type=multiple")
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
+      const data = await response.json()
+      setData(data.results)
+      setIsLoading(false)
+    } catch (error) {
+      console.log(error)
+      setError(true)
+    } finally {
+      setIsLoading(false);
+      setstartGame(true)
     }
-    getQuiz()
-  }, [])
+  }
 
   function decodeHtmlTrim(html) {
     var txt = document.createElement("textarea");
     txt.innerHTML = html;
     return txt.value.trim();
-}
+  }
 
   const quizData = data.map((dataElement, index) => {
     const sortedAnswers = [...dataElement.incorrect_answers, dataElement.correct_answer].sort((a, b) => a - b)
@@ -50,48 +48,56 @@ function App() {
 
   return (
     <main className='main-element'>
-      {/* <div className='first-page-wrapper'>
-        <h1 className='title'>
-          Quizzy
-        </h1>
-        <p className='description'>
-          Are you expert of Javascript?
-        </p>
-        <button className='main-button'>
-          Start quiz
-        </button>
-      </div> */}
-      <div className='second-page-wrapper'>
-        <form className='quiz-container'>
-          {quizData.map((quiz) => {
-            return (
-              <fieldset key={quiz.id} className='question-fieldset'>
-                <legend className='question'>
-                  {decodeHtmlTrim(quiz.question)}
-                </legend>
-                <ul className='answers-container'>
-                  {quiz.answers.map((answer, index) => {
-                    return (
-                      <li key={index} className='answer'>
-                        <input
-                          type="radio"
-                          id={`${answer}-${index}`}
-                          name={answer}
-                          value={answer}
-                        />
-                        <label htmlFor={`${answer}-${index}`}>{decodeHtmlTrim(answer)}</label>
-                      </li>
-                    )
-                  })}
-                </ul>
-              </fieldset>
-            )
-          })}
+      {!startGame &&
+        <div className='first-page-wrapper'>
+          <h1 className='title'>
+            Quizzy
+          </h1>
+          <p className='description'>
+            Are you expert of Javascript?
+          </p>
+          {
+            isLoading ?
+              <span className='loader'></span> :
+              <button onClick={getData} className='main-button'>
+                Start quiz
+              </button>
+          }
+        </div>
+      }
+      {
+        startGame &&
+        <div className='second-page-wrapper'>
+          <form className='quiz-container'>
+            {quizData.map((quiz) => {
+              return (
+                <fieldset key={quiz.id} className='question-fieldset'>
+                  <legend className='question'>
+                    {decodeHtmlTrim(quiz.question)}
+                  </legend>
+                  <ul className='answers-container'>
+                    {quiz.answers.map((answer, index) => {
+                      return (
+                        <li key={index} className='answer'>
+                          <input
+                            type="radio"
+                            id={`${answer}-${index}`}
+                            name={answer}
+                            value={answer}
+                          />
+                          <label htmlFor={`${answer}-${index}`}>{decodeHtmlTrim(answer)}</label>
+                        </li>
+                      )
+                    })}
+                  </ul>
+                </fieldset>
+              )
+            })}
 
-          <button className='main-button'>
-            Check answers
-          </button>
-          {/* <div className='score-container'>
+            <button className='main-button'>
+              Check answers
+            </button>
+            {/* <div className='score-container'>
             <h2 className='score'>
               You scored 3/5 correct answers
             </h2>
@@ -99,8 +105,9 @@ function App() {
               Play again
             </button>
           </div> */}
-        </form>
-      </div>
+          </form>
+        </div>
+      }
       <div className='blob-container one'>
         <img className='blob-image' src={blobOne} alt="" />
       </div>
