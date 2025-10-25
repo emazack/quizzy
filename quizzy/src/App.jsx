@@ -10,10 +10,9 @@ function App() {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(false)
   const [startGame, setstartGame] = useState(false)
-  const correctAnswers = data.map((dataElement) => dataElement.correct_answer)
+  const [selectedAnswers, setSelectedAnswers] = useState({})
 
-  console.log(correctAnswers);
-  
+  const correctAnswers = data.map((dataElement) => dataElement.correct_answer)
 
   const quizData = data.map((dataElement, index) => {
     const sortedAnswers = [...dataElement.incorrect_answers, dataElement.correct_answer].sort((a, b) => a - b)
@@ -48,6 +47,21 @@ function App() {
     var txt = document.createElement("textarea");
     txt.innerHTML = html;
     return txt.value.trim();
+  }
+
+  function handleCheckAnswers(event) {
+    event.preventDefault()
+
+
+  }
+
+  function handleAnswerChange(questionId, answerValue) {
+    setSelectedAnswers((prevAnswers => {
+      return {
+        ...prevAnswers,
+        [questionId]: answerValue
+      }
+    }))
   }
 
 
@@ -85,12 +99,21 @@ function App() {
                       return (
                         <li key={index} className='answer'>
                           <input
-                            type="radio"
+                            type='radio'
                             id={`${answer}-${index}`}
-                            name={answer}
+                            name={quiz.id}
                             value={answer}
+                            checked={selectedAnswers[quiz.id] === answer}
+                            onChange={(event) => {
+                              handleAnswerChange(quiz.id, event.target.value)
+                            }}
                           />
-                          <label htmlFor={`${answer}-${index}`}>{decodeHtmlTrim(answer)}</label>
+                          <label
+                            htmlFor={`${answer}-${index}`}
+                            className={}
+                          >
+                            {decodeHtmlTrim(answer)}
+                          </label>
                         </li>
                       )
                     })}
@@ -99,7 +122,7 @@ function App() {
               )
             })}
 
-            <button className='main-button'>
+            <button onClick={handleCheckAnswers} className='main-button'>
               Check answers
             </button>
             {/* <div className='score-container'>
